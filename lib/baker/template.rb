@@ -14,8 +14,12 @@ module Baker
       @content ||= open(file).read # Not sold on this yet
     end
     
+    def template_path
+      "templates/default"
+    end
+    
     def compile(template_name)
-      dir = "#{cookbook_directory}/templates/default"
+      dir = "#{cookbook_directory}/#{template_path}"
       ::FileUtils.mkdir_p dir unless ::File.directory?(dir)
       File.open("#{dir}/#{template_name}", "w") {|f| f << content}
     end

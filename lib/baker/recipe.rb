@@ -3,9 +3,11 @@
   
 =end
 module Baker
-  class Recipe < Base
+  class Recipe < Template
     
-    
+    def template_path
+      "recipes"
+    end
     
   end
 end

@@ -1,11 +1,11 @@
 module Baker
   class Base
-    attr_accessor :meal, :options, :key
-    attr_writer   :cookbook_directory
+    attr_accessor :meal, :key
+    attr_writer   :options, :cookbook_directory
     
     def initialize(opts={})
       @options = extract_options(opts)
-      @options.each {|k,v| self.send("#{k}=",v) }
+      options.each {|k,v| self.send("#{k}=",v) } if options
     end
     
     def compile
@@ -14,6 +14,10 @@ module Baker
     
     def cookbook_directory
       @cookbook_directory ||= "#{meal ? meal.cookbook_directory : "./"}"
+    end
+    
+    def options
+      @options ||= {}
     end
     
     def extract_options(o={})
