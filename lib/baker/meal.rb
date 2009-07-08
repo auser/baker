@@ -6,31 +6,23 @@ module Baker
     
     attr_reader :cookbook_directory
     
-    def json(str, &block)
-      
+    def initialize(cookbook_directory, opts={})
+      raise StandardError.new("You must pass a directory to make the meal") unless cookbook_directory && cookbook_directory.is_a?(String)
+      @cookbook_directory = cookbook_directory
     end
     
-    def template(*tplates)
-      return templates if tplates.empty?
-      tplates.each do |fpath|
-        fpath = File.expand_path(fpath)
-        if File.file?(fpath)
-          templates << Template.new(:file => fpath, :cookbook_directory => cookbook_directory)
-        elsif File.directory?(fpath)
-          Dir["#{fpath}/**"].each {|f| template(f) }
-        else
-          $stderr.puts "The template #{fpath} does not exist"
-        end
+    def json(str, &block)
+    end
+        
+    def template(*templates)
+      templates.each do |temp|
+        templates << Baker::Template.new(:file => temp, :cookbook_directory => cookbook_directory)
       end
     end
     
-    def templates(*n)
-      if n && !n.empty?
-        template *n
-      else
-        @templates ||= []
-      end      
+    def templates
+      @templates ||= []
     end
-    
+        
   end
 end

@@ -3,16 +3,7 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 class MealTest < Test::Unit::TestCase
   context "template" do
     setup do
-      @meal = Baker::Meal.new
-    end
-
-    should "accept templates as an list" do
-      swallow_output do
-        assert_nothing_raised do
-          @meal.template "hi", "guys"
-          @meal.templates "hi", "guys"
-        end
-      end
+      @meal = Baker::Meal.new("#{File.dirname(__FILE__)}/../test_dir")
     end
     
     should "not add a template who's file doesn't exist" do

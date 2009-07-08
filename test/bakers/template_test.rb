@@ -35,6 +35,11 @@ class TemplateTest < Test::Unit::TestCase
       @template.compile("burbary")
       assert_equal "Just a template called <%= name %>\n", open("#{@cookbook_directory}/templates/default/burbary.erb").read
     end
+    should "have the all method to reveal all the templates" do
+      assert_equal [], @template.all
+      @template.compile("burbary")
+      assert_equal ["burbary.erb"], @template.all
+    end
   end
   
 end
