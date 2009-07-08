@@ -29,4 +29,17 @@ class MealTest < Test::Unit::TestCase
     end
   end
   
+  context "recipe" do
+    setup do
+      @meal = Baker::Meal.new("#{File.dirname(__FILE__)}/../test_dir")
+      @recipe_path = File.expand_path("#{File.dirname(__FILE__)}/../fixtures/recipe_fixture.erb")
+    end
+
+    should "be able to create a recipe" do
+      @meal.recipe @recipe_path
+      assert_equal @meal.recipe_files[0], @recipe_path
+    end
+  end
+  
+  
 end
