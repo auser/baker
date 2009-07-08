@@ -23,7 +23,7 @@ class RecipeTest < Test::Unit::TestCase
     end
     
     teardown do
-      # FileUtils.rm_rf @cookbook_directory if File.directory?(@cookbook_directory)
+      FileUtils.rm_rf @cookbook_directory if File.directory?(@cookbook_directory)
     end
 
     should "create the recipe directory (since it doesn't exist)" do
@@ -33,7 +33,7 @@ class RecipeTest < Test::Unit::TestCase
     end
     should "store the content in the new file" do
       @recipe.compile("burbary")
-      assert_equal "package \"dummy_package\" do\n  action :install\nend", open("#{@cookbook_directory}/recipes/burbary").read
+      assert_equal "package \"dummy_package\" do\n  action :install\nend", open("#{@cookbook_directory}/recipes/burbary.erb").read
     end
   end
   

@@ -21,7 +21,7 @@ module Baker
     def compile(template_name)
       dir = "#{cookbook_directory}/#{template_path}"
       ::FileUtils.mkdir_p dir unless ::File.directory?(dir)
-      File.open("#{dir}/#{template_name}", "w") {|f| f << content}
+      File.open("#{dir}/#{template_name}.erb", "w") {|f| f << content}
     end
     
   end

@@ -23,7 +23,7 @@ class TemplateTest < Test::Unit::TestCase
     end
     
     teardown do
-      FileUtils.rm_rf @cookbook_directory if File.directory?(@cookbook_directory)
+      # FileUtils.rm_rf @cookbook_directory if File.directory?(@cookbook_directory)
     end
 
     should "create the template directory (since it doesn't exist)" do
@@ -33,7 +33,7 @@ class TemplateTest < Test::Unit::TestCase
     end
     should "store the content in the new file" do
       @template.compile("burbary")
-      assert_equal "Just a template called <%= name %>\n", open("#{@cookbook_directory}/templates/default/burbary").read
+      assert_equal "Just a template called <%= name %>\n", open("#{@cookbook_directory}/templates/default/burbary.erb").read
     end
   end
   

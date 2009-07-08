@@ -2,7 +2,7 @@ $:.unshift("#{File.dirname(__FILE__)}/baker")
 require "rubygems"
 require "json"
 
-%w(base jsoner template recipe config include_cookbook meal).each do |lib|
+%w(base jsoner template recipe config include_cookbook attributes meal).each do |lib|
   require "#{lib}"
 end
 
