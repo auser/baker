@@ -14,7 +14,7 @@ module Baker
     def json(str, &block)
     end
     
-    %w(template recipe).each do |meth|
+    %w(template recipe files attribute).each do |meth|
       module_eval <<-EOE
 def #{meth}(*arr)
   arr.each do |temp|
@@ -30,6 +30,7 @@ def #{meth}(*arr)
     end
   end
 end
+alias :#{meth}s :#{meth}
 
 def #{meth}_files
   #{meth}s.map {|a| a.file }
@@ -39,6 +40,13 @@ def #{meth}s
   @#{meth}s ||= []
 end      
       EOE
+    end
+    
+    def attribute(hsh)
+      att = Baker::Attributes.new
+      att.variables hsh
+      attributes << att
+      att
     end
         
   end

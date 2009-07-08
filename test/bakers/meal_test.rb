@@ -41,5 +41,29 @@ class MealTest < Test::Unit::TestCase
     end
   end
   
+  context "file" do
+    setup do
+      @meal = Baker::Meal.new("#{File.dirname(__FILE__)}/../test_dir")
+      @file_path = File.expand_path("#{File.dirname(__FILE__)}/../fixtures/files/dummy_file.pl")
+    end
+
+    should "be able to create a file" do
+      @meal.files @file_path
+      assert_equal @meal.files_files[0], @file_path
+    end
+  end
+  
+  context "attributes" do
+    setup do
+      @meal = Baker::Meal.new("#{File.dirname(__FILE__)}/../test_dir")
+      @attributes_hash = {:song => "Fa Fa", :artist => "Guster"}
+    end
+
+    should "be able to create an attribute" do
+      @meal.attribute @attributes_hash
+      assert_equal @meal.attributes[0].attributes, @attributes_hash
+    end
+  end
+  
   
 end
