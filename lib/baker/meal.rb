@@ -14,10 +14,23 @@ module Baker
     def json(str, &block)
     end
         
-    def template(*templates)
-      templates.each do |temp|
-        templates << Baker::Template.new(:file => temp, :cookbook_directory => cookbook_directory)
+    def template(*temps)
+      temps.each do |temp|
+        tfile = File.expand_path(temp)
+        if File.file?(tfile)
+          templates << Baker::Template.new(:file => tfile, :cookbook_directory => cookbook_directory) unless template_files.include?(tfile)
+        elsif File.directory?(tfile)
+          Dir["#{tfile}/**/*"].each do |t|
+            template(File.expand_path(t))
+          end
+        else
+          raise StandardError.new("Meal template accepts only files or directories. Please check your call to template")
+        end
       end
+    end
+    
+    def template_files
+      templates.map {|a| a.file }
     end
     
     def templates

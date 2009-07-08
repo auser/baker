@@ -31,5 +31,9 @@ module Baker
       File.open("#{full_path}/#{template_name}.erb", "w") {|f| f << content}
     end
     
+    def ===(other)
+      full_path == other
+    end
+    
   end
 end

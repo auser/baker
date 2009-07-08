@@ -23,7 +23,7 @@ class TemplateTest < Test::Unit::TestCase
     end
     
     teardown do
-      # FileUtils.rm_rf @cookbook_directory if File.directory?(@cookbook_directory)
+      FileUtils.rm_rf @cookbook_directory if File.directory?(@cookbook_directory)
     end
 
     should "create the template directory (since it doesn't exist)" do

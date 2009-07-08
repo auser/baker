@@ -8,9 +8,10 @@ class MealTest < Test::Unit::TestCase
     
     should "not add a template who's file doesn't exist" do
       swallow_output do
-        @meal.template "/non/existant/path"
-      end      
-      assert_equal [], @meal.templates
+        assert_raises StandardError do
+          @meal.template "/non/existant/path"
+        end        
+      end
     end
     
     should "add a template where the file does exist" do
